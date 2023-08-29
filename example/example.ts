@@ -6,7 +6,7 @@ To run this locally follow these steps:
 3. Create a config.json file with a token, appId, and guildId/serverId (guildId is optional)
 */
 
-import { CommandInteraction, Events, GatewayIntentBits } from 'discord.js';
+import { ChatInputCommandInteraction, CommandInteraction, Events, GatewayIntentBits } from 'discord.js';
 import { Cog, CogsClient, ArgumentType } from 'discord.ts-cogs';
 import { token, appId, guildId } from './config.json';
 
@@ -54,24 +54,24 @@ class MyCog extends Cog
     @Cog.command()
     @Cog.argument("a", ArgumentType.Number, "First number", true)
     @Cog.argument("b", ArgumentType.Number, "Second number", true)
-    async add(interaction : CommandInteraction)
+    async add(interaction : ChatInputCommandInteraction)
     {
-        const a = interaction.options.data[0].value as number;
-        const b = interaction.options.data[1].value as number;
+        const a = interaction.options.getNumber("a", true);
+        const b = interaction.options.getNumber("b", true);
         await interaction.reply((a + b).toString());
     }
 
     @Cog.command()
     @Cog.argument("what", ArgumentType.String, "What to memorize", true)
-    async memorize(interaction : CommandInteraction)
+    async memorize(interaction : ChatInputCommandInteraction)
     {
-        const what = interaction.options.data[0].value as string;
+        const what = interaction.options.getString("what");
         this.memory.push(what);
         await interaction.reply("I have memorized " + what);
     }
 
     @Cog.command()
-    async recall(interaction : CommandInteraction)
+    async recall(interaction : ChatInputCommandInteraction)
     {
         const memoryLength = this.memory.length;
         if(memoryLength > 0)

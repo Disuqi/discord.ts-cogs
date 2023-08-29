@@ -28,9 +28,9 @@ class MyCog extends Cog
     @Cog.command("say", "Make the bot say something")
     //For arguments add the argument decorator, and you can specify the name, type and description of the argument
     @Cog.argument("arg1", ArgumentType.String, "What should I say?")
-    async botSay(interaction : CommandInteraction)
+    async botSay(interaction : ChatInputCommandInteraction)
     {
-        let arg1 = interaction.options.data[0].value as string;
+        let arg1 = interaction.options.getString("arg1");
         if(!arg1)
             arg1 = "You did not tell me what to say";
         await interaction.reply(arg1);
@@ -40,10 +40,10 @@ class MyCog extends Cog
     @Cog.command()
     @Cog.argument("a", ArgumentType.Number, "First number", true)
     @Cog.argument("b", ArgumentType.Number, "Second number", true)
-    async add(interaction : CommandInteraction)
+    async add(interaction : ChatInputCommandInteraction)
     {
-        const a = interaction.options.data[0].value as number;
-        const b = interaction.options.data[1].value as number;
+        const a = interaction.options.getNumber("a");
+        const b = interaction.options.getNumber("b");
         await interaction.reply((a + b).toString());
     }
 }
