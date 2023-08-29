@@ -1,15 +1,6 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CogSlashCommand = exports.IndependentSlashCommand = exports.SlashCommand = exports.SlashCommandMetadata = exports.Routes = exports.REST = exports.Collection = exports.Client = exports.CommandInteraction = exports.ApplicationCommandOptionBase = exports.SlashCommandAttachmentOption = exports.SlashCommandMentionableOption = exports.SlashCommandRoleOption = exports.SlashCommandChannelOption = exports.SlashCommandUserOption = exports.SlashCommandBooleanOption = exports.SlashCommandNumberOption = exports.SlashCommandIntegerOption = exports.SlashCommandStringOption = exports.SlashCommandBuilder = void 0;
+exports.CogSlashCommand = exports.SlashCommand = exports.SlashCommandMetadata = exports.Routes = exports.REST = exports.Collection = exports.Client = exports.CommandInteraction = exports.ApplicationCommandOptionBase = exports.SlashCommandAttachmentOption = exports.SlashCommandMentionableOption = exports.SlashCommandRoleOption = exports.SlashCommandChannelOption = exports.SlashCommandUserOption = exports.SlashCommandBooleanOption = exports.SlashCommandNumberOption = exports.SlashCommandIntegerOption = exports.SlashCommandStringOption = exports.SlashCommandBuilder = void 0;
 const discord_js_1 = require("discord.js");
 Object.defineProperty(exports, "SlashCommandAttachmentOption", { enumerable: true, get: function () { return discord_js_1.SlashCommandAttachmentOption; } });
 const discord_js_2 = require("discord.js");
@@ -142,23 +133,11 @@ class SlashCommand {
     setupOption(option, arg) {
         option.setName(arg.name);
         option.setDescription(arg.description);
-        option.setRequired(true);
+        option.setRequired(arg.required);
         return option;
     }
 }
 exports.SlashCommand = SlashCommand;
-class IndependentSlashCommand extends SlashCommand {
-    constructor(metadata, func) {
-        super(metadata);
-        this._function = func;
-    }
-    call(interaction) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this._function(interaction);
-        });
-    }
-}
-exports.IndependentSlashCommand = IndependentSlashCommand;
 class CogSlashCommand extends SlashCommand {
     constructor(metadata, cog, functionName) {
         super(metadata);
@@ -168,10 +147,8 @@ class CogSlashCommand extends SlashCommand {
     get functionName() {
         return this._functionName;
     }
-    call(interaction) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this._cog[this._functionName](interaction);
-        });
+    async call(interaction) {
+        this._cog[this._functionName](interaction);
     }
 }
 exports.CogSlashCommand = CogSlashCommand;
