@@ -11,7 +11,8 @@ export abstract class Cog
     {
         return function (target: Cog, propertyKey : string, descriptor: PropertyDescriptor)
         {
-            Cog.checkFunction(target, propertyKey, descriptor);
+            if (typeof descriptor.value !== "function")
+                throw new CogDecoratorException("@Cog.command decorator can only be applied to functions");
 
             if (!name || name === "")
                 name = propertyKey;
@@ -32,23 +33,15 @@ export abstract class Cog
     {
         return function(target: Cog, propertyKey: string, descriptor: PropertyDescriptor)
         {
-            Cog.checkFunction(target, propertyKey, descriptor);
+            if (typeof descriptor.value !== "function")
+                throw new CogDecoratorException("@Cog.argument decorator can only be applied to functions");
+
             if(!name || name === "")
                 throw new CogDecoratorException("Argument name cannot be empty");
 
             descriptor.value.args = descriptor.value.args? descriptor.value.args : [];
             descriptor.value.args.push(new CommandArgument(name, type, description, required));
         }
-    }
-
-    private static checkFunction(target: Cog, propertyKey: string, descriptor: PropertyDescriptor)
-    {
-        if (typeof descriptor.value !== "function")
-            throw new CogDecoratorException("@Cog.command decorator can only be applied to functions");
-
-        const types = Reflect.getMetadata("design:paramtypes", target, propertyKey);
-        if (types.length != 1 || types[0] != CommandInteraction)
-            throw new CogDecoratorException("The decorated function must have exactly one parameter of type CommandInteraction");
     }
 
     getCommands() : SlashCommand[]

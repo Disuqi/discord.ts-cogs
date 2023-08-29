@@ -1,12 +1,28 @@
 {
-  "name" : "@discordjs/cogs",
-  "version": "0.0.1",
-  "description": "A cog system for discord.js, which also includes new decorators to create slash commands.",
+  "name": "@discordjs/cogs",
+  "version": "1.0.0",
+  "description": "A discord.js extension which introduces Cogs (inspired by discord.py), it also has decorators to facilite command creations, plus a new way to handle and call commands.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "/dist"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Disuqi/discord.js-cogs.git"
+  },
+  "keywords": [
+    "discord.js",
+    "discord.js/cogs",
+    "Cogs",
+    "discord.ts/cogs",
+    "discord.ts/decorators",
+    "discord.js/decorators",
+    "decorators"
   ],
+  "author": "Disuqi Hijazi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Disuqi/discord.js-cogs/issues"
+  },
+  "homepage": "https://github.com/Disuqi/discord.js-cogs#readme",
   "dependencies": {
     "discord.js": "^14.13.0",
     "reflect-metadata": "^0.1.13"

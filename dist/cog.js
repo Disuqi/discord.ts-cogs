@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cog = void 0;
-const discord_js_1 = require("discord.js");
 const command_1 = require("./command");
 const argument_1 = require("./argument");
 const errors_1 = require("./errors");
 class Cog {
     static command(name, description) {
         return function (target, propertyKey, descriptor) {
-            Cog.checkFunction(target, propertyKey, descriptor);
+            if (typeof descriptor.value !== "function")
+                throw new errors_1.CogDecoratorException("@Cog.command decorator can only be applied to functions");
             if (!name || name === "")
                 name = propertyKey;
             const metadata = new command_1.SlashCommandMetadata(name, description);
@@ -22,19 +22,13 @@ class Cog {
     }
     static argument(name, type, description, required) {
         return function (target, propertyKey, descriptor) {
-            Cog.checkFunction(target, propertyKey, descriptor);
+            if (typeof descriptor.value !== "function")
+                throw new errors_1.CogDecoratorException("@Cog.argument decorator can only be applied to functions");
             if (!name || name === "")
                 throw new errors_1.CogDecoratorException("Argument name cannot be empty");
             descriptor.value.args = descriptor.value.args ? descriptor.value.args : [];
             descriptor.value.args.push(new argument_1.CommandArgument(name, type, description, required));
         };
-    }
-    static checkFunction(target, propertyKey, descriptor) {
-        if (typeof descriptor.value !== "function")
-            throw new errors_1.CogDecoratorException("@Cog.command decorator can only be applied to functions");
-        const types = Reflect.getMetadata("design:paramtypes", target, propertyKey);
-        if (types.length != 1 || types[0] != discord_js_1.CommandInteraction)
-            throw new errors_1.CogDecoratorException("The decorated function must have exactly one parameter of type CommandInteraction");
     }
     getCommands() {
         const commands = [];
