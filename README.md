@@ -55,7 +55,7 @@ This function will automatically add the commands to the bot.
 The `CogsClient` inherits from the discord.js <a href="https://old.discordjs.dev/#/docs/discord.js/main/class/Client">`Client`</a> class, therefore, it is the same class, but with a few extra features.
 This client also contains a `syncCommands` method, which will sync the slash commands with the discord api, this will automatically sync cog commands, however, the cog will need to be added first.
 ```ts
-const client = new CogsClient({intents: [GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
+const client = new CogsClient({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);

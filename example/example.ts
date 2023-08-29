@@ -10,7 +10,7 @@ import { CommandInteraction, Events, GatewayIntentBits } from 'discord.js';
 import { Cog, CogsClient, ArgumentType } from 'discord.ts-cogs';
 import { token, appId, guildId } from './config.json';
 
-const client = new CogsClient({intents: [GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
+const client = new CogsClient({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
