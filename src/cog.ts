@@ -18,11 +18,12 @@ export abstract class Cog
                 name = propertyKey;
 
             const metadata = new SlashCommandMetadata(name, description);
-            if (descriptor.value.args != undefined)
+            const args = descriptor.value.args;
+            if (args != undefined)
             {
-                for (const arg of descriptor.value.args)
+                for (let i = args.length - 1; i >= 0; i--)
                 {
-                    metadata.addArg(arg);
+                    metadata.addArg(args[i]);
                 }
             }
             Reflect.defineMetadata(SlashCommandMetadata.COMMAND_METADATA_KEY, metadata, target, propertyKey);

@@ -24,7 +24,7 @@ export class CogsClient extends Client
 		}
 	}
 
-	async syncCommands(token : string, clientId : string, guildId : string)
+	async syncCommands(token : string, clientId : string, guildId? : string)
 	{
         const rest = new REST().setToken(token);
 		const body: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
@@ -33,6 +33,9 @@ export class CogsClient extends Client
 			const builder = command.build();
             body.push(builder.toJSON());
 		});
-		await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: body });
+		if(guildId)
+			await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: body });
+		else
+			await rest.put(Routes.applicationCommands(clientId), { body: body });
 	}
 }

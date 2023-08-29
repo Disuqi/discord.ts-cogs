@@ -1,5 +1,5 @@
 {
-  "name": "@discordjs/cogs",
+  "name": "discord.ts-cogs",
   "version": "1.0.0",
   "description": "A discord.js extension which introduces Cogs (inspired by discord.py), it also has decorators to facilite command creations, plus a new way to handle and call commands.",
   "main": "dist/index.js",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/Disuqi/discord.js-cogs#readme",
   "dependencies": {
     "discord.js": "^14.13.0",
+    "npmrc": "^1.1.1",
     "reflect-metadata": "^0.1.13"
   }
 }

@@ -150,30 +150,12 @@ export abstract class SlashCommand
     {
         option.setName(arg.name);
         option.setDescription(arg.description);
-        option.setRequired(true);
+        option.setRequired(arg.required);
         return option;
     }
 
     abstract call(interaction: CommandInteraction) : Promise<void>;
 }
-
-
-export class IndependentSlashCommand extends SlashCommand
-{
-	private _function : (interaction: CommandInteraction) => Promise<void>;
-
-	constructor(metadata: SlashCommandMetadata, func: (interaction: CommandInteraction) => Promise<void>)
-	{
-		super(metadata);
-		this._function = func;
-	}
-
-	async call(interaction: CommandInteraction)
-	{
-		await this._function(interaction);
-	}
-}
-
 
 export class CogSlashCommand extends SlashCommand
 {

@@ -12,9 +12,10 @@ class Cog {
             if (!name || name === "")
                 name = propertyKey;
             const metadata = new command_1.SlashCommandMetadata(name, description);
-            if (descriptor.value.args != undefined) {
-                for (const arg of descriptor.value.args) {
-                    metadata.addArg(arg);
+            const args = descriptor.value.args;
+            if (args != undefined) {
+                for (let i = args.length - 1; i >= 0; i--) {
+                    metadata.addArg(args[i]);
                 }
             }
             Reflect.defineMetadata(command_1.SlashCommandMetadata.COMMAND_METADATA_KEY, metadata, target, propertyKey);
