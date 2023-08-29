@@ -84,5 +84,5 @@ client.on(Events.InteractionCreate, async interaction =>
 ```
 
 ## Benefits of using Cogs
-Cog can have properties which can be used in the command functions, and shared across functions within that cog, as well as other classes, if the instance of the cog is given. Furthermore, it facilitates the creation, addittion, and handling of slash commands.
+Cog can have properties which can be used in the command functions, and shared across functions within that cog, as well as other classes, if the instance of the cog is given. Furthermore, it facilitates the creation, addition, and handling of slash commands.
 Checkout the <a href="https://github.com/Disuqi/discord.ts-cogs/blob/main/example/example.ts">complete example code</a> for better understanding. 
